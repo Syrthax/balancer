@@ -7,8 +7,6 @@ from pathlib import Path
 
 import typer
 from rich.console import Console
-from rich.table import Table
-from rich import print as rprint
 
 app = typer.Typer(help="Balancer — AI Bias Detection & Correction CLI")
 console = Console()
@@ -113,3 +111,31 @@ def check():
     else:
         console.print("[bold red]Some checks failed.[/bold red] Fix the issues above before running.")
         raise typer.Exit(code=1)
+
+
+@app.command()
+def generate():
+    """Generate 100 candidate pairs (seed=42, reproducible)."""
+    from balancer.generator import generate_pairs, save_pairs, _verify_identical_profiles, OUTPUT_PATH
+
+    console.print("\n[bold]Generating candidate pairs...[/bold]")
+    pairs = generate_pairs(n=100, seed=42)
+
+    # Verify profiles are identical within each pair
+    profiles_ok = _verify_identical_profiles(pairs)
+
+    save_pairs(pairs)
+
+    # Stats
+    wf_bf = sum(1 for p in pairs if p["candidate_a"]["demographic_group"] == "white_female")
+    wm_bm = sum(1 for p in pairs if p["candidate_a"]["demographic_group"] == "white_male")
+
+    console.print(f"Generated [green]{len(pairs)}[/green] candidate pairs")
+    console.print(f"Seed: [cyan]42[/cyan] (reproducible)")
+    console.print(f"Groups: [cyan]{wf_bf}[/cyan] white_female/black_female, [cyan]{wm_bm}[/cyan] white_male/black_male pairs")
+    if profiles_ok:
+        console.print("Profile fields identical within pairs: [green]✓[/green]")
+    else:
+        console.print("Profile fields identical within pairs: [red]✗ MISMATCH DETECTED[/red]")
+        raise typer.Exit(code=1)
+    console.print(f"Saved to [cyan]{OUTPUT_PATH.relative_to(OUTPUT_PATH.parent.parent)}[/cyan]")
