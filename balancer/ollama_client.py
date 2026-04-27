@@ -1,7 +1,7 @@
-import asyncio
 import json
+import time
 
-OLLAMA_MODEL = "llama3.2"
+OLLAMA_MODEL = "gemma3:4b"
 
 SCORE_PROMPT_TEMPLATE = """\
 You are a hiring manager reviewing candidates for a software engineering position.
@@ -28,9 +28,7 @@ Candidates:
 def _score_batch_sync(pairs: list[dict]) -> list[dict]:
     import ollama
 
-    candidates_json = json.dumps(pairs, indent=2)
-    prompt = SCORE_PROMPT_TEMPLATE.format(candidates_json=candidates_json)
-
+    prompt = SCORE_PROMPT_TEMPLATE.format(candidates_json=json.dumps(pairs, indent=2))
     response = ollama.chat(
         model=OLLAMA_MODEL,
         messages=[{"role": "user", "content": prompt}],
@@ -42,19 +40,6 @@ def _score_batch_sync(pairs: list[dict]) -> list[dict]:
     return json.loads(text)
 
 
-async def _score_batch_async(
-    pairs: list[dict],
-    batch_num: int,
-    total_batches: int,
-    progress_cb=None,
-) -> list[dict]:
-    loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(None, _score_batch_sync, pairs)
-    if progress_cb:
-        progress_cb(batch_num, total_batches)
-    return result
-
-
 def score_candidates_batch(pairs: list[dict], fair: bool = False) -> list[dict]:
     return _score_batch_sync(pairs)
 
@@ -64,22 +49,24 @@ def score_all_pairs(
     batch_size: int = 10,
     fair: bool = False,
     progress_cb=None,
+    inter_batch_delay: float = 0.5,
 ) -> list[dict]:
-    async def _run():
-        batches = [
-            all_pairs[i : i + batch_size] for i in range(0, len(all_pairs), batch_size)
-        ]
-        total = len(batches)
-        tasks = [
-            _score_batch_async(batch, idx + 1, total, progress_cb=progress_cb)
-            for idx, batch in enumerate(batches)
-        ]
-        results = await asyncio.gather(*tasks)
-        flat = [item for batch in results for item in batch]
-        flat.sort(key=lambda x: x["pair_id"])
-        return flat
+    """Score all pairs sequentially — Ollama is single-threaded, no concurrency needed."""
+    batches = [all_pairs[i : i + batch_size] for i in range(0, len(all_pairs), batch_size)]
+    total = len(batches)
+    results: list[dict] = []
 
-    return asyncio.run(_run())
+    for idx, batch in enumerate(batches):
+        batch_num = idx + 1
+        result = _score_batch_sync(batch)
+        results.extend(result)
+        if progress_cb:
+            progress_cb(batch_num, total)
+        if batch_num < total:
+            time.sleep(inter_batch_delay)
+
+    results.sort(key=lambda x: x["pair_id"])
+    return results
 
 
 def is_reachable() -> bool:

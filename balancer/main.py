@@ -146,21 +146,19 @@ def test_api():
     """Send 2 test pairs to the active LLM client and verify the response."""
     import time
     from balancer.generator import generate_pairs
-    from balancer.router import get_client, get_client_name
+    from balancer.router import score_with_fallback
 
-    client = get_client()
-    name = get_client_name(client)
-    console.print(f"\nActive client: [cyan]{name}[/cyan]")
-    console.print("Sending 2 test pairs...")
-
+    console.print("\nSending 2 test pairs...")
     pairs = generate_pairs(n=2, seed=42)
     start = time.time()
     try:
-        scores = client.score_candidates_batch(pairs)
+        scores, name = score_with_fallback(pairs, batch_size=2)
     except Exception as e:
         console.print(f"[red]✗ Request failed:[/red] {e}")
         raise typer.Exit(code=1)
     elapsed = time.time() - start
+
+    console.print(f"Active client: [cyan]{name}[/cyan]")
 
     console.print(f"Response received in [cyan]{elapsed:.1f}s[/cyan]")
 
@@ -187,4 +185,86 @@ def test_api():
         f"Sample: pair_{first['pair_id']} → "
         f"candidate_a: [cyan]{first['candidate_a_score']}[/cyan], "
         f"candidate_b: [cyan]{first['candidate_b_score']}[/cyan]"
+    )
+
+
+@app.command()
+def run(seed: int = typer.Option(42, help="Seed for pair generation")):
+    """Full pipeline: load pairs → score → save results/gemini_biased.json."""
+    import json
+    import time
+    from datetime import datetime
+    from balancer.generator import generate_pairs, save_pairs, load_pairs, OUTPUT_PATH
+    from balancer.router import score_with_fallback
+
+    console.print("\n[bold]Balancer v0.1.0[/bold]")
+    console.print("─" * 35)
+
+    # [1/6] Load candidates
+    console.print("[bold cyan][1/6][/bold cyan] Loading candidates...", end="          ")
+    if OUTPUT_PATH.exists():
+        pairs = load_pairs()
+    else:
+        pairs = generate_pairs(n=100, seed=seed)
+        save_pairs(pairs)
+    console.print(f"[green]{len(pairs)} pairs ✓[/green]")
+
+    # Check existing results — offer to skip re-scoring
+    biased_path = RESULTS_DIR / "gemini_biased.json"
+    if biased_path.exists():
+        with open(biased_path) as f:
+            existing = json.load(f)
+        ts = existing.get("metadata", {}).get("timestamp", "unknown")
+        answer = typer.prompt(
+            f"\nResults exist from {ts}. Rerun scoring?",
+            default="N",
+        )
+        if answer.strip().upper() != "Y":
+            console.print(
+                "Using existing results. "
+                "Run [cyan]balancer analyze[/cyan] to view bias metrics."
+            )
+            return
+
+    # [2/6] Connect (handled inside score_with_fallback)
+    console.print("[bold cyan][2/6][/bold cyan] Connecting to LLM...              ")
+
+    # [3/6] Score all pairs
+    console.print("[bold cyan][3/6][/bold cyan] Scoring candidates...")
+
+    def _progress(batch_num: int, total: int) -> None:
+        console.print(f"      Batch {batch_num:>2}/{total} [green]✓[/green]")
+
+    start = time.time()
+    try:
+        scores, name = score_with_fallback(pairs, batch_size=10, progress_cb=_progress)
+    except Exception as e:
+        console.print(f"[red]✗ Scoring failed:[/red] {e}")
+        raise typer.Exit(code=1)
+    elapsed = time.time() - start
+    console.print(f"      Client: [cyan]{name}[/cyan]  ({elapsed:.1f}s)")
+
+    # [4/6] Persist raw results
+    console.print("[bold cyan][4/6][/bold cyan] Saving raw results...", end="          ")
+    result_data = {
+        "metadata": {
+            "timestamp": datetime.now().isoformat(timespec="seconds"),
+            "model": name,
+            "total_pairs": len(scores),
+            "client": "gemini" if "Gemini" in name else "ollama",
+            "scoring_time_seconds": round(elapsed, 1),
+        },
+        "scores": scores,
+    }
+    with open(biased_path, "w") as f:
+        json.dump(result_data, f, indent=2)
+    console.print("[green]results/gemini_biased.json ✓[/green]")
+
+    # [5/6] and [6/6] placeholders
+    console.print("[bold cyan][5/6][/bold cyan] Running bias analysis...   [dim](phase 5)[/dim]")
+    console.print("[bold cyan][6/6][/bold cyan] Generating report...       [dim](phase 7)[/dim]")
+
+    console.print(
+        f"\n[green]Done.[/green] {len(scores)} pairs scored in {elapsed:.1f}s. "
+        "Run [cyan]balancer analyze[/cyan] next."
     )
