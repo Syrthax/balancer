@@ -1,0 +1,30 @@
+{
+  "white_female": [
+    "Emily", "Anne", "Jill", "Allison", "Sarah",
+    "Meredith", "Carrie", "Kristen", "Stephanie", "Lauren",
+    "Colleen", "Meghan", "Susan", "Carol", "Amanda",
+    "Courtney", "Kate", "Heather", "Molly", "Amy",
+    "Rebecca", "Rachel", "Ashley", "Jennifer", "Jessica"
+  ],
+  "white_male": [
+    "Greg", "Jack", "Matthew", "Neil", "Todd",
+    "Brad", "Andrew", "Jonathan", "Frank", "Peter",
+    "Scott", "Joshua", "Ryan", "Jay", "Geoffrey",
+    "Brett", "Erik", "Jeffrey", "Kyle", "Roger",
+    "Adam", "Steven", "Patrick", "Michael", "Daniel"
+  ],
+  "black_female": [
+    "Lakisha", "Tamika", "Shanice", "Aiesha", "Keisha",
+    "Tanisha", "Tameisha", "Tashika", "Lashelle", "Jasmine",
+    "Ebony", "Latoya", "Shaniqua", "Rashida", "Tiffany",
+    "Latonya", "Shanise", "Latasha", "Sharise", "Lashandra",
+    "Nichelle", "Aisha", "Kenya", "Jada", "Imani"
+  ],
+  "black_male": [
+    "Jamal", "Leroy", "Tremayne", "Kareem", "Darnell",
+    "Tyrone", "Hakim", "Jermaine", "Lamar", "Lionel",
+    "Rasheed", "Terrell", "DeShawn", "DeAndre", "Marquis",
+    "Terence", "Ebony", "Reginald", "Damon", "Trevon",
+    "Darius", "Nathaniel", "Cornelius", "Jerome", "Jabari"
+  ]
+}

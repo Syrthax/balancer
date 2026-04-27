@@ -1,0 +1,12 @@
+balancer_bias.egg-info/
+__pycache__/
+*.pyc
+.DS_Store
+results/gemini_biased.json
+results/math_fixed.json
+results/gemini_self_corrected.json
+results/audit_narrative.json
+results/report.html
+results/demo_cache.json
+data/candidates.json
+.env
