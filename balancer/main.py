@@ -139,3 +139,52 @@ def generate():
         console.print("Profile fields identical within pairs: [red]✗ MISMATCH DETECTED[/red]")
         raise typer.Exit(code=1)
     console.print(f"Saved to [cyan]{OUTPUT_PATH.relative_to(OUTPUT_PATH.parent.parent)}[/cyan]")
+
+
+@app.command(name="test-api")
+def test_api():
+    """Send 2 test pairs to the active LLM client and verify the response."""
+    import time
+    from balancer.generator import generate_pairs
+    from balancer.router import get_client, get_client_name
+
+    client = get_client()
+    name = get_client_name(client)
+    console.print(f"\nActive client: [cyan]{name}[/cyan]")
+    console.print("Sending 2 test pairs...")
+
+    pairs = generate_pairs(n=2, seed=42)
+    start = time.time()
+    try:
+        scores = client.score_candidates_batch(pairs)
+    except Exception as e:
+        console.print(f"[red]✗ Request failed:[/red] {e}")
+        raise typer.Exit(code=1)
+    elapsed = time.time() - start
+
+    console.print(f"Response received in [cyan]{elapsed:.1f}s[/cyan]")
+
+    # Validate JSON structure
+    valid = isinstance(scores, list) and len(scores) > 0
+    console.print(f"JSON valid: {'[green]✓[/green]' if valid else '[red]✗[/red]'}")
+    if not valid:
+        console.print("[red]✗ No scores returned[/red]")
+        raise typer.Exit(code=1)
+
+    # Check all pairs have scores
+    all_have_scores = all(
+        "candidate_a_score" in s and "candidate_b_score" in s for s in scores
+    )
+    console.print(
+        f"Scores present for all pairs: {'[green]✓[/green]' if all_have_scores else '[red]✗[/red]'}"
+    )
+    if not all_have_scores:
+        raise typer.Exit(code=1)
+
+    # Show sample
+    first = scores[0]
+    console.print(
+        f"Sample: pair_{first['pair_id']} → "
+        f"candidate_a: [cyan]{first['candidate_a_score']}[/cyan], "
+        f"candidate_b: [cyan]{first['candidate_b_score']}[/cyan]"
+    )
