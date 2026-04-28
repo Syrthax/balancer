@@ -411,3 +411,37 @@ def fix():
     console.print("[green]✓[/green]  results/gemini_self_corrected.json")
     console.print("[green]✓[/green]  results/audit_narrative.json")
     console.print("\nRun [cyan]balancer report[/cyan] to generate the HTML report.")
+
+
+@app.command()
+def report(
+    open_browser: bool = typer.Option(True, "--open/--no-open", help="Auto-open in browser"),
+    output: str = typer.Option("results/report.html", help="Output path for the HTML report"),
+):
+    """Generate a self-contained HTML bias audit report (no CDN)."""
+    from pathlib import Path
+    from balancer.reporter import generate_report, open_report
+
+    out_path = Path(output)
+    if not out_path.is_absolute():
+        out_path = REPO_ROOT / out_path
+
+    biased_path = RESULTS_DIR / "gemini_biased.json"
+    if not biased_path.exists():
+        console.print("[red]✗[/red] results/gemini_biased.json not found. Run [cyan]balancer run[/cyan] first.")
+        raise typer.Exit(code=1)
+
+    console.print("\n[bold]Generating bias audit report...[/bold]")
+
+    try:
+        path = generate_report(out_path)
+    except Exception as e:
+        console.print(f"[red]✗ Report generation failed:[/red] {e}")
+        raise typer.Exit(code=1)
+
+    size_kb = path.stat().st_size // 1024
+    console.print(f"[green]✓[/green]  {path.relative_to(REPO_ROOT)}  ({size_kb} KB, fully self-contained)")
+
+    if open_browser:
+        open_report(path)
+        console.print("Opened in browser.")

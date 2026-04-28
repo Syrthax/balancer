@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Balancer — Bias Audit Report</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --border: #2a2d3a;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #6366f1;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --orange: #f97316;
+  --white-col: #60a5fa;
+  --black-col: #f472b6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.6; }
+.page { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+/* Header */
+.header { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%); border-radius: 12px; padding: 32px 36px; margin-bottom: 24px; border: 1px solid #3730a3; }
+.header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; }
+.logo { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+.logo span { color: #818cf8; }
+.badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(99,102,241,0.2); border: 1px solid #6366f1; border-radius: 20px; padding: 4px 14px; font-size: 12px; color: #a5b4fc; }
+.header-meta { margin-top: 16px; color: #a5b4fc; font-size: 13px; }
+.header-meta span { margin-right: 20px; }
+.severity-badge { display: inline-block; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; margin-left: 8px; }
+.sev-critical { background: rgba(239,68,68,0.2); color: #fca5a5; border: 1px solid #ef4444; }
+.sev-high { background: rgba(249,115,22,0.2); color: #fdba74; border: 1px solid #f97316; }
+.sev-medium { background: rgba(245,158,11,0.2); color: #fde68a; border: 1px solid #f59e0b; }
+.sev-low { background: rgba(34,197,94,0.2); color: #86efac; border: 1px solid #22c55e; }
+
+/* Section */
+.section { margin-bottom: 28px; }
+.section-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); letter-spacing: 0.3px; }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.card-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
+.card-value { font-size: 26px; font-weight: 800; }
+.card-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.val-green { color: var(--green); }
+.val-red { color: var(--red); }
+.val-yellow { color: var(--yellow); }
+.val-orange { color: var(--orange); }
+.val-muted { color: var(--muted); }
+
+/* Grade colors */
+.grade-A { color: var(--green); }
+.grade-B { color: #84cc16; }
+.grade-C { color: var(--yellow); }
+.grade-D { color: var(--orange); }
+.grade-F { color: var(--red); }
+
+/* Comparison table */
+.cmp-table { width: 100%; border-collapse: collapse; }
+.cmp-table th, .cmp-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+.cmp-table th { background: var(--surface); color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+.cmp-table tr:hover td { background: rgba(255,255,255,0.02); }
+.cmp-table td:first-child { color: var(--muted); font-size: 12px; }
+.col-biased { color: var(--red); font-weight: 600; }
+.col-math { color: var(--green); font-weight: 600; }
+.col-sc { color: #a78bfa; font-weight: 600; }
+.col-header-biased { color: var(--red) !important; }
+.col-header-math { color: var(--green) !important; }
+.col-header-sc { color: #a78bfa !important; }
+.pass-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 6px; background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+.fail-tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-left: 6px; background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+/* Charts */
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+.chart-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+canvas { display: block; width: 100%; }
+.chart-legend { display: flex; gap: 16px; margin-top: 10px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Narrative */
+.narrative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.narrative-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+.narrative-card.full { grid-column: 1 / -1; }
+.narrative-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+.narrative-text { font-size: 13px; color: var(--text); line-height: 1.7; }
+.verdict-box { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.3); border-radius: 8px; padding: 14px 18px; }
+.verdict-text { font-size: 15px; font-weight: 600; color: #c7d2fe; }
+
+/* Footer */
+.footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); }
+
+@media (max-width: 700px) {
+  .charts-grid { grid-template-columns: 1fr; }
+  .narrative-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="logo">Balance<span>r</span></div>
+      <div style="color:#a5b4fc;font-size:13px;margin-top:4px;">AI Bias Detection &amp; Correction — Audit Report</div>
+    </div>
+    <div class="badge">H2S × Google for Developers Hackathon</div>
+  </div>
+  <div class="header-meta" style="margin-top:14px;">
+    <span>Model: {{ metadata.get('model', 'unknown') }}</span>
+    <span>Pairs scored: {{ metadata.get('total_pairs', 100) }}</span>
+    <span>Generated: {{ metadata.get('timestamp', '') }}</span>
+    {% if narrative.severity %}
+    <span>Severity:
+      <span class="severity-badge sev-{{ narrative.severity | lower }}">{{ narrative.severity }}</span>
+    </span>
+    {% endif %}
+  </div>
+  {% if narrative.verdict %}
+  <div style="margin-top:14px;padding:10px 14px;background:rgba(0,0,0,0.25);border-radius:8px;font-size:13px;color:#e0e7ff;border-left:3px solid #6366f1;">
+    {{ narrative.verdict }}
+  </div>
+  {% endif %}
+</div>
+
+<!-- Key Metrics -->
+<div class="section">
+  <div class="section-title">Key Metrics — Biased Run</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-label">Bias Grade</div>
+      <div class="card-value grade-{{ biased.grade | replace('-','') | replace('+','') }}">{{ biased.grade }}</div>
+      <div class="card-sub">Disparate Impact Score</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Demographic Parity Gap</div>
+      <div class="card-value {% if biased.dpg_overall | abs > 5 %}val-red{% elif biased.dpg_overall | abs > 2 %}val-yellow{% else %}val-green{% endif %}">
+        {% if biased.dpg_overall > 0 %}+{% endif %}{{ "%.1f"|format(biased.dpg_overall) }}
+      </div>
+      <div class="card-sub">white − black avg score (pts)</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Disparate Impact Ratio</div>
+      <div class="card-value {% if biased.dir >= 0.80 %}val-green{% else %}val-red{% endif %}">{{ "%.3f"|format(biased.dir) }}</div>
+      <div class="card-sub">EEOC threshold: 0.800</div>
+    </div>
+    <div class="card">
+      <div class="card-label">p-value</div>
+      <div class="card-value {% if biased.significant %}val-red{% else %}val-green{% endif %}">{{ "%.4f"|format(biased.p_value) }}</div>
+      <div class="card-sub">{% if biased.significant %}Statistically significant{% else %}Not significant (α=0.05){% endif %}</div>
+    </div>
+    <div class="card">
+      <div class="card-label">White Avg Score</div>
+      <div class="card-value" style="color:var(--white-col)">{{ biased.white_avg }}</div>
+      <div class="card-sub">White-coded candidates</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Black Avg Score</div>
+      <div class="card-value" style="color:var(--black-col)">{{ biased.black_avg }}</div>
+      <div class="card-sub">Black-coded candidates</div>
+    </div>
+  </div>
+</div>
+
+<!-- Three-Way Comparison Table -->
+<div class="section">
+  <div class="section-title">Three-Way Comparison</div>
+  <table class="cmp-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="col-header-biased">Biased Run</th>
+        <th class="col-header-math">Math-Fixed</th>
+        <th class="col-header-sc">Self-Corrected</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bias Grade</td>
+        <td class="col-biased">{{ biased.grade }}</td>
+        <td class="col-math">{{ math.grade if math else '—' }}</td>
+        <td class="col-sc">{{ sc.grade if sc else '—' }}</td>
+      </tr>
+      <tr>
+        <td>Disparate Impact Ratio</td>
+        <td class="col-biased">
+          {{ "%.3f"|format(biased.dir) }}
+          {% if biased.dir >= 0.80 %}<span class="pass-tag">PASS</span>{% else %}<span class="fail-tag">FAIL</span>{% endif %}
+        </td>
+        <td class="col-math">
+          {% if math %}{{ "%.3f"|format(math.dir) }}{% if math.dir >= 0.80 %}<span class="pass-tag">PASS</span>{% else %}<span class="fail-tag">FAIL</span>{% endif %}{% else %}—{% endif %}
+        </td>
+        <td class="col-sc">
+          {% if sc %}{{ "%.3f"|format(sc.dir) }}{% if sc.dir >= 0.80 %}<span class="pass-tag">PASS</span>{% else %}<span class="fail-tag">FAIL</span>{% endif %}{% else %}—{% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>Demographic Parity Gap</td>
+        <td class="col-biased">{% if biased.dpg_overall > 0 %}+{% endif %}{{ "%.2f"|format(biased.dpg_overall) }} pts</td>
+        <td class="col-math">{% if math %}{% if math.dpg_overall > 0 %}+{% endif %}{{ "%.2f"|format(math.dpg_overall) }} pts{% else %}—{% endif %}</td>
+        <td class="col-sc">{% if sc %}{% if sc.dpg_overall > 0 %}+{% endif %}{{ "%.2f"|format(sc.dpg_overall) }} pts{% else %}—{% endif %}</td>
+      </tr>
+      <tr>
+        <td>White Avg Score</td>
+        <td>{{ biased.white_avg }}</td>
+        <td>{{ math.white_avg if math else '—' }}</td>
+        <td>{{ sc.white_avg if sc else '—' }}</td>
+      </tr>
+      <tr>
+        <td>Black Avg Score</td>
+        <td>{{ biased.black_avg }}</td>
+        <td>{{ math.black_avg if math else '—' }}</td>
+        <td>{{ sc.black_avg if sc else '—' }}</td>
+      </tr>
+      <tr>
+        <td>White Hire Rate (≥75)</td>
+        <td>{{ biased.white_hire_rate }}%</td>
+        <td>{{ math.white_hire_rate if math else '—' }}{% if math %}%{% endif %}</td>
+        <td>{{ sc.white_hire_rate if sc else '—' }}{% if sc %}%{% endif %}</td>
+      </tr>
+      <tr>
+        <td>Black Hire Rate (≥75)</td>
+        <td>{{ biased.black_hire_rate }}%</td>
+        <td>{{ math.black_hire_rate if math else '—' }}{% if math %}%{% endif %}</td>
+        <td>{{ sc.black_hire_rate if sc else '—' }}{% if sc %}%{% endif %}</td>
+      </tr>
+      <tr>
+        <td>Consistency Rate</td>
+        <td>{{ (biased.consistency_rate * 100)|round(1) }}%</td>
+        <td>{{ ((math.consistency_rate * 100)|round(1) if math else '—') }}{% if math %}%{% endif %}</td>
+        <td>{{ ((sc.consistency_rate * 100)|round(1) if sc else '—') }}{% if sc %}%{% endif %}</td>
+      </tr>
+      <tr>
+        <td>p-value (paired t-test)</td>
+        <td>{{ biased.p_value }}{% if biased.significant %} *{% endif %}</td>
+        <td>{% if math %}{{ math.p_value }}{% if math.significant %} *{% endif %}{% else %}—{% endif %}</td>
+        <td>{% if sc %}{{ sc.p_value }}{% if sc.significant %} *{% endif %}{% else %}—{% endif %}</td>
+      </tr>
+      <tr>
+        <td>Proxy Features</td>
+        <td>{% if biased.proxy_features %}{{ biased.proxy_features | join(', ') }}{% else %}none (name-only){% endif %}</td>
+        <td colspan="2" style="color:var(--muted);font-size:12px;">* p &lt; 0.05 = statistically significant bias</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Charts -->
+<div class="section">
+  <div class="section-title">Score Distributions &amp; Analysis</div>
+  <div class="charts-grid">
+    <div class="chart-box">
+      <div class="chart-title">Score Distribution — Biased Run</div>
+      <canvas id="histBiased" height="200"></canvas>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>White-coded</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f472b6"></div>Black-coded</div>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Pair-by-Pair Scores (White vs Black)</div>
+      <canvas id="scatter" height="200"></canvas>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#6366f1;border-radius:50%"></div>Score pair</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#475569;border-radius:50%"></div>Diagonal = equal scores</div>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Method Comparison — Disparate Impact Ratio</div>
+      <canvas id="dirComparison" height="200"></canvas>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Biased</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Math-Fixed</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>Self-Corrected</div>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Average Scores by Method &amp; Group</div>
+      <canvas id="avgScores" height="200"></canvas>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>White-coded avg</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f472b6"></div>Black-coded avg</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Audit Narrative -->
+{% if narrative %}
+<div class="section">
+  <div class="section-title">Audit Narrative <span style="font-size:11px;font-weight:400;color:var(--muted);">Generated by {{ narrative.model if narrative.model else 'LLM' }}</span></div>
+  {% if narrative.verdict %}
+  <div class="verdict-box" style="margin-bottom:16px;">
+    <div class="narrative-label">Executive Verdict</div>
+    <div class="verdict-text">{{ narrative.verdict }}</div>
+  </div>
+  {% endif %}
+  <div class="narrative-grid">
+    {% if narrative.explanation %}
+    <div class="narrative-card full">
+      <div class="narrative-label">Explanation</div>
+      <div class="narrative-text">{{ narrative.explanation }}</div>
+    </div>
+    {% endif %}
+    {% if narrative.root_cause %}
+    <div class="narrative-card">
+      <div class="narrative-label">Root Cause Hypothesis</div>
+      <div class="narrative-text">{{ narrative.root_cause }}</div>
+    </div>
+    {% endif %}
+    {% if narrative.fix_comparison %}
+    <div class="narrative-card">
+      <div class="narrative-label">Fix Effectiveness</div>
+      <div class="narrative-text">{{ narrative.fix_comparison }}</div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+
+<!-- Methodology -->
+<div class="section">
+  <div class="section-title">Methodology</div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;">EXPERIMENTAL DESIGN</div>
+      <ul style="list-style:none;font-size:13px;line-height:2;color:var(--text);">
+        <li>• 100 candidate pairs, seed=42 (reproducible)</li>
+        <li>• Identical profiles — only name differs</li>
+        <li>• B&amp;M 2004 name list (white/black, male/female)</li>
+        <li>• 50 female pairs (WF/BF) + 50 male pairs (WM/BM)</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;">HOMEMADE METRICS</div>
+      <ul style="list-style:none;font-size:13px;line-height:2;color:var(--text);">
+        <li>• DPG = mean(white) − mean(black)</li>
+        <li>• DIR = black_hire_rate / white_hire_rate (EEOC 4/5)</li>
+        <li>• Consistency = % pairs where white scored higher</li>
+        <li>• Proxy MI: I(X;Y) = H(X)+H(Y)−H(X,Y)</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;">BIAS GRADING (EEOC 4/5 RULE)</div>
+      <ul style="list-style:none;font-size:13px;line-height:2;color:var(--text);">
+        <li>• A: DIR ≥ 0.90 &nbsp;(excellent)</li>
+        <li>• B: DIR ≥ 0.80 &nbsp;(EEOC pass)</li>
+        <li>• C: DIR ≥ 0.70 &nbsp;(concerning)</li>
+        <li>• D / F: DIR &lt; 0.70 &nbsp;(significant violation)</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted);margin-bottom:8px;">CORRECTION METHODS</div>
+      <ul style="list-style:none;font-size:13px;line-height:2;color:var(--text);">
+        <li>• Math: score × (overall_mean / group_mean), clamped [0,100]</li>
+        <li>• Self-correct: fairness-aware reprompt to LLM</li>
+        <li>• Proxy detection: mutual information threshold 0.1</li>
+        <li>• Statistical test: paired t-test, α=0.05</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Generated by Balancer v0.1.0 &nbsp;·&nbsp; H2S × Google for Developers Hackathon &nbsp;·&nbsp; Unbiased AI Decision Track
+</div>
+
+</div><!-- .page -->
+
+<script>
+const CHART = {{ chart_data_json }};
+const REPORTS = {{ reports_json }};
+
+const BUCKET_LABELS = ['0-9','10-19','20-29','30-39','40-49','50-59','60-69','70-79','80-89','90-100'];
+const WHITE = '#60a5fa';
+const BLACK = '#f472b6';
+const GRID = 'rgba(255,255,255,0.06)';
+const TEXT = '#94a3b8';
+
+function setupCanvas(id) {
+  const el = document.getElementById(id);
+  const dpr = window.devicePixelRatio || 1;
+  const rect = el.parentElement.getBoundingClientRect();
+  const w = rect.width - 40;
+  const h = parseInt(el.getAttribute('height'));
+  el.style.width = w + 'px';
+  el.style.height = h + 'px';
+  el.width = w * dpr;
+  el.height = h * dpr;
+  const ctx = el.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return { ctx, w, h };
+}
+
+function drawGrid(ctx, x0, y0, w, h, steps) {
+  ctx.strokeStyle = GRID;
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= steps; i++) {
+    const y = y0 + (h / steps) * i;
+    ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x0 + w, y); ctx.stroke();
+  }
+}
+
+// 1. Histogram — biased run
+function drawHistogram(id, wBuckets, bBuckets) {
+  const { ctx, w, h } = setupCanvas(id);
+  const pad = { l: 36, r: 10, t: 10, b: 30 };
+  const cw = w - pad.l - pad.r;
+  const ch = h - pad.t - pad.b;
+  const n = wBuckets.length;
+  const maxVal = Math.max(...wBuckets, ...bBuckets, 1);
+
+  drawGrid(ctx, pad.l, pad.t, cw, ch, 4);
+
+  const groupW = cw / n;
+  const barW = groupW * 0.38;
+  const gap = groupW * 0.05;
+
+  ctx.font = '10px sans-serif';
+  ctx.fillStyle = TEXT;
+  ctx.textAlign = 'center';
+
+  for (let i = 0; i < n; i++) {
+    const x = pad.l + i * groupW + groupW * 0.5;
+
+    // white bar
+    const wh = (wBuckets[i] / maxVal) * ch;
+    ctx.fillStyle = WHITE;
+    ctx.globalAlpha = 0.85;
+    ctx.fillRect(x - barW - gap / 2, pad.t + ch - wh, barW, wh);
+
+    // black bar
+    const bh = (bBuckets[i] / maxVal) * ch;
+    ctx.fillStyle = BLACK;
+    ctx.fillRect(x + gap / 2, pad.t + ch - bh, barW, bh);
+
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = TEXT;
+    ctx.fillText(BUCKET_LABELS[i], x, pad.t + ch + 16);
+  }
+
+  // Y axis labels
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++) {
+    const val = Math.round((maxVal / 4) * (4 - i));
+    const y = pad.t + (ch / 4) * i;
+    ctx.fillStyle = TEXT;
+    ctx.fillText(val, pad.l - 4, y + 4);
+  }
+}
+
+// 2. Scatter plot
+function drawScatter(id, points) {
+  const { ctx, w, h } = setupCanvas(id);
+  const pad = { l: 36, r: 10, t: 10, b: 30 };
+  const cw = w - pad.l - pad.r;
+  const ch = h - pad.t - pad.b;
+
+  drawGrid(ctx, pad.l, pad.t, cw, ch, 4);
+
+  // Diagonal line (y=x means equal scores)
+  ctx.strokeStyle = 'rgba(71,85,105,0.6)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath();
+  ctx.moveTo(pad.l, pad.t + ch);
+  ctx.lineTo(pad.l + cw, pad.t);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Axes labels
+  ctx.font = '10px sans-serif';
+  ctx.fillStyle = TEXT;
+  ctx.textAlign = 'center';
+  ctx.fillText('White score →', pad.l + cw / 2, h - 4);
+
+  for (const pt of points) {
+    const px = pad.l + (pt.x / 100) * cw;
+    const py = pad.t + ch - (pt.y / 100) * ch;
+    const aboveDiag = pt.y > pt.x;
+    ctx.beginPath();
+    ctx.arc(px, py, 3, 0, Math.PI * 2);
+    ctx.fillStyle = aboveDiag ? '#f472b6' : (pt.x === pt.y ? '#64748b' : '#60a5fa');
+    ctx.globalAlpha = 0.7;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  // Axis ticks
+  ctx.textAlign = 'center';
+  ctx.fillStyle = TEXT;
+  for (const v of [0, 25, 50, 75, 100]) {
+    const px = pad.l + (v / 100) * cw;
+    ctx.fillText(v, px, pad.t + ch + 14);
+  }
+  ctx.textAlign = 'right';
+  for (const v of [0, 25, 50, 75, 100]) {
+    const py = pad.t + ch - (v / 100) * ch;
+    ctx.fillText(v, pad.l - 4, py + 4);
+  }
+}
+
+// 3. DIR comparison bar chart
+function drawDirComparison(id) {
+  const { ctx, w, h } = setupCanvas(id);
+  const pad = { l: 36, r: 10, t: 20, b: 30 };
+  const cw = w - pad.l - pad.r;
+  const ch = h - pad.t - pad.b;
+
+  const cols = ['Biased', 'Math-Fixed', 'Self-Corrected'];
+  const colors = ['#ef4444', '#22c55e', '#a78bfa'];
+  const vals = [
+    REPORTS.biased ? REPORTS.biased.dir : null,
+    REPORTS.math ? REPORTS.math.dir : null,
+    REPORTS.sc ? REPORTS.sc.dir : null,
+  ];
+
+  drawGrid(ctx, pad.l, pad.t, cw, ch, 4);
+
+  // EEOC threshold line at 0.80
+  const threshY = pad.t + ch - (0.80 / 1.0) * ch;
+  ctx.strokeStyle = '#f59e0b';
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([6, 3]);
+  ctx.beginPath();
+  ctx.moveTo(pad.l, threshY);
+  ctx.lineTo(pad.l + cw, threshY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = '#f59e0b';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('EEOC 0.80', pad.l + 4, threshY - 4);
+
+  const groupW = cw / cols.length;
+  const barW = groupW * 0.4;
+
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+
+  for (let i = 0; i < cols.length; i++) {
+    if (vals[i] === null) continue;
+    const x = pad.l + i * groupW + groupW / 2;
+    const bh = (vals[i] / 1.0) * ch;
+    ctx.fillStyle = colors[i];
+    ctx.globalAlpha = 0.85;
+    ctx.fillRect(x - barW / 2, pad.t + ch - bh, barW, bh);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = TEXT;
+    ctx.fillText(cols[i], x, pad.t + ch + 16);
+    ctx.fillStyle = '#fff';
+    ctx.fillText(vals[i].toFixed(3), x, pad.t + ch - bh - 6);
+  }
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = TEXT;
+  for (let i = 0; i <= 4; i++) {
+    const v = (1.0 / 4) * (4 - i);
+    const y = pad.t + (ch / 4) * i;
+    ctx.fillText(v.toFixed(2), pad.l - 4, y + 4);
+  }
+}
+
+// 4. Avg scores grouped bar chart
+function drawAvgScores(id) {
+  const { ctx, w, h } = setupCanvas(id);
+  const pad = { l: 36, r: 10, t: 20, b: 30 };
+  const cw = w - pad.l - pad.r;
+  const ch = h - pad.t - pad.b;
+
+  const groups = ['Biased', 'Math-Fixed', 'Self-Corrected'];
+  const wAvgs = [
+    REPORTS.biased ? REPORTS.biased.white_avg : null,
+    REPORTS.math ? REPORTS.math.white_avg : null,
+    REPORTS.sc ? REPORTS.sc.white_avg : null,
+  ];
+  const bAvgs = [
+    REPORTS.biased ? REPORTS.biased.black_avg : null,
+    REPORTS.math ? REPORTS.math.black_avg : null,
+    REPORTS.sc ? REPORTS.sc.black_avg : null,
+  ];
+
+  const allVals = [...wAvgs, ...bAvgs].filter(v => v !== null);
+  const minVal = Math.max(0, Math.min(...allVals) - 10);
+  const maxVal = Math.min(100, Math.max(...allVals) + 5);
+  const range = maxVal - minVal;
+
+  drawGrid(ctx, pad.l, pad.t, cw, ch, 4);
+
+  const groupW = cw / groups.length;
+  const barW = groupW * 0.28;
+  const gap = 4;
+
+  ctx.font = '10px sans-serif';
+
+  for (let i = 0; i < groups.length; i++) {
+    const x = pad.l + i * groupW + groupW / 2;
+
+    if (wAvgs[i] !== null) {
+      const bh = ((wAvgs[i] - minVal) / range) * ch;
+      ctx.fillStyle = WHITE;
+      ctx.globalAlpha = 0.85;
+      ctx.fillRect(x - barW - gap / 2, pad.t + ch - bh, barW, bh);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = WHITE;
+      ctx.textAlign = 'center';
+      ctx.fillText(wAvgs[i].toFixed(1), x - barW / 2 - gap / 2, pad.t + ch - bh - 4);
+    }
+
+    if (bAvgs[i] !== null) {
+      const bh = ((bAvgs[i] - minVal) / range) * ch;
+      ctx.fillStyle = BLACK;
+      ctx.globalAlpha = 0.85;
+      ctx.fillRect(x + gap / 2, pad.t + ch - bh, barW, bh);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = BLACK;
+      ctx.textAlign = 'center';
+      ctx.fillText(bAvgs[i].toFixed(1), x + barW / 2 + gap / 2, pad.t + ch - bh - 4);
+    }
+
+    ctx.fillStyle = TEXT;
+    ctx.textAlign = 'center';
+    ctx.fillText(groups[i], x, pad.t + ch + 16);
+  }
+
+  ctx.textAlign = 'right';
+  ctx.fillStyle = TEXT;
+  for (let i = 0; i <= 4; i++) {
+    const v = minVal + (range / 4) * (4 - i);
+    const y = pad.t + (ch / 4) * i;
+    ctx.fillText(v.toFixed(0), pad.l - 4, y + 4);
+  }
+}
+
+// Draw all charts after layout settles
+window.addEventListener('load', () => {
+  drawHistogram('histBiased', CHART.biased.white, CHART.biased.black);
+  drawScatter('scatter', CHART.scatter);
+  drawDirComparison('dirComparison');
+  drawAvgScores('avgScores');
+});
+</script>
+</body>
+</html>
