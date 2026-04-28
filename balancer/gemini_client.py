@@ -4,7 +4,7 @@ import os
 import time
 import warnings
 
-GEMINI_MODEL = "gemini-2.0-flash-lite"
+GEMINI_MODEL = "gemini-2.5-flash"
 
 
 class GeminiQuotaError(Exception):

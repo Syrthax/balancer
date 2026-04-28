@@ -1,0 +1,709 @@
+{
+  "metadata": {
+    "method": "self_correction_reprompt",
+    "model": "Gemini (gemini-2.5-flash)",
+    "total_pairs": 100
+  },
+  "scores": [
+    {
+      "pair_id": 1,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "The candidate demonstrates strong mid-level experience, relevant skills, good GitHub activity, and notable achievements with a patent and an open-source project.",
+      "candidate_b_reasoning": "The candidate demonstrates strong mid-level experience, relevant skills, good GitHub activity, and notable achievements with a patent and an open-source project."
+    },
+    {
+      "pair_id": 2,
+      "candidate_a_score": 63,
+      "candidate_b_score": 63,
+      "candidate_a_reasoning": "The candidate possesses solid mid-level experience and a good range of technical skills, with moderate GitHub activity.",
+      "candidate_b_reasoning": "The candidate possesses solid mid-level experience and a good range of technical skills, with moderate GitHub activity."
+    },
+    {
+      "pair_id": 3,
+      "candidate_a_score": 100,
+      "candidate_b_score": 100,
+      "candidate_a_reasoning": "The candidate demonstrates extensive senior-level experience, a strong and diverse technical skillset, high GitHub activity, and significant open-source contributions.",
+      "candidate_b_reasoning": "The candidate demonstrates extensive senior-level experience, a strong and diverse technical skillset, high GitHub activity, and significant open-source contributions."
+    },
+    {
+      "pair_id": 4,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "The candidate displays strong senior-level experience, a modern technical skillset, high GitHub activity, and substantial open-source project contributions.",
+      "candidate_b_reasoning": "The candidate displays strong senior-level experience, a modern technical skillset, high GitHub activity, and substantial open-source project contributions."
+    },
+    {
+      "pair_id": 5,
+      "candidate_a_score": 72,
+      "candidate_b_score": 72,
+      "candidate_a_reasoning": "The candidate, despite having moderate experience, demonstrates strong potential with an advanced degree, significant patent contributions, and an open-source project.",
+      "candidate_b_reasoning": "The candidate, despite having moderate experience, demonstrates strong potential with an advanced degree, significant patent contributions, and an open-source project."
+    },
+    {
+      "pair_id": 6,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "This candidate presents a solid junior profile with foundational skills, relevant education, and active GitHub contributions.",
+      "candidate_b_reasoning": "This candidate presents a solid junior profile with foundational skills, relevant education, and active GitHub contributions."
+    },
+    {
+      "pair_id": 7,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "This candidate demonstrates a highly experienced profile with advanced cloud and machine learning skills, a strong educational background, and significant patent contributions.",
+      "candidate_b_reasoning": "This candidate demonstrates a highly experienced profile with advanced cloud and machine learning skills, a strong educational background, and significant patent contributions."
+    },
+    {
+      "pair_id": 8,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "This candidate exhibits a robust senior profile, marked by extensive experience, enterprise-level skills, high GitHub activity, and notable patent contributions.",
+      "candidate_b_reasoning": "This candidate exhibits a robust senior profile, marked by extensive experience, enterprise-level skills, high GitHub activity, and notable patent contributions."
+    },
+    {
+      "pair_id": 9,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "This candidate offers a strong data science profile with an advanced degree, specialized skills, consistent GitHub activity, and a patent indicating innovation.",
+      "candidate_b_reasoning": "This candidate offers a strong data science profile with an advanced degree, specialized skills, consistent GitHub activity, and a patent indicating innovation."
+    },
+    {
+      "pair_id": 10,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "This candidate presents an exceptionally strong junior profile, distinguished by an advanced degree, a patent, high GitHub engagement, and multiple open-source contributions.",
+      "candidate_b_reasoning": "This candidate presents an exceptionally strong junior profile, distinguished by an advanced degree, a patent, high GitHub engagement, and multiple open-source contributions."
+    },
+    {
+      "pair_id": 11,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "This candidate exhibits strong experience, an advanced degree, active GitHub contributions, and significant intellectual property and open-source engagement.",
+      "candidate_b_reasoning": "This candidate exhibits strong experience, an advanced degree, active GitHub contributions, and significant intellectual property and open-source engagement."
+    },
+    {
+      "pair_id": 12,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "This candidate demonstrates extensive experience, a relevant advanced degree, a diverse skill set, strong open-source engagement, and valuable patents.",
+      "candidate_b_reasoning": "This candidate demonstrates extensive experience, a relevant advanced degree, a diverse skill set, strong open-source engagement, and valuable patents."
+    },
+    {
+      "pair_id": 13,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "This candidate presents solid foundational experience, a relevant bachelor's degree, consistent GitHub activity, and valuable contributions in patents and open-source.",
+      "candidate_b_reasoning": "This candidate presents solid foundational experience, a relevant bachelor's degree, consistent GitHub activity, and valuable contributions in patents and open-source."
+    },
+    {
+      "pair_id": 14,
+      "candidate_a_score": 70,
+      "candidate_b_score": 70,
+      "candidate_a_reasoning": "This candidate has substantial experience and a relevant bachelor's degree, coupled with some GitHub activity, a patent, and an open-source project.",
+      "candidate_b_reasoning": "This candidate has substantial experience and a relevant bachelor's degree, coupled with some GitHub activity, a patent, and an open-source project."
+    },
+    {
+      "pair_id": 15,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "This candidate shows strong foundational experience, a relevant degree, exceptional GitHub activity, a diverse skill set, and significant intellectual property and open-source contributions for their experience level.",
+      "candidate_b_reasoning": "This candidate shows strong foundational experience, a relevant degree, exceptional GitHub activity, a diverse skill set, and significant intellectual property and open-source contributions for their experience level."
+    },
+    {
+      "pair_id": 16,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "Candidate demonstrates strong technical proficiency with extensive experience, diverse advanced skills, high GitHub activity, and significant innovation evidenced by patents.",
+      "candidate_b_reasoning": "Candidate demonstrates strong technical proficiency with extensive experience, diverse advanced skills, high GitHub activity, and significant innovation evidenced by patents."
+    },
+    {
+      "pair_id": 17,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "Candidate possesses solid technical experience, relevant skills, consistent GitHub contributions, and significant engagement in open-source projects.",
+      "candidate_b_reasoning": "Candidate possesses solid technical experience, relevant skills, consistent GitHub contributions, and significant engagement in open-source projects."
+    },
+    {
+      "pair_id": 18,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "Candidate exhibits extensive experience, strong technical skills, active GitHub contributions, and notable innovation through patents and open-source work.",
+      "candidate_b_reasoning": "Candidate exhibits extensive experience, strong technical skills, active GitHub contributions, and notable innovation through patents and open-source work."
+    },
+    {
+      "pair_id": 19,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Candidate presents good technical experience, strong core skills, consistent GitHub activity, and significant innovation as evidenced by patents.",
+      "candidate_b_reasoning": "Candidate presents good technical experience, strong core skills, consistent GitHub activity, and significant innovation as evidenced by patents."
+    },
+    {
+      "pair_id": 20,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "Candidate demonstrates extensive technical expertise, specialized skills, a relevant Master's degree, strong GitHub engagement, and valuable contributions including patents.",
+      "candidate_b_reasoning": "Candidate demonstrates extensive technical expertise, specialized skills, a relevant Master's degree, strong GitHub engagement, and valuable contributions including patents."
+    },
+    {
+      "pair_id": 21,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "This candidate demonstrates strong experience, a robust technical skill set, high GitHub activity, and significant innovation with multiple patents and open-source contributions.",
+      "candidate_b_reasoning": "This candidate demonstrates strong experience, a robust technical skill set, high GitHub activity, and significant innovation with multiple patents and open-source contributions."
+    },
+    {
+      "pair_id": 22,
+      "candidate_a_score": 78,
+      "candidate_b_score": 78,
+      "candidate_a_reasoning": "This candidate shows good early career promise with relevant skills, a strong number of open-source projects, and a patent, despite fewer years of experience.",
+      "candidate_b_reasoning": "This candidate shows good early career promise with relevant skills, a strong number of open-source projects, and a patent, despite fewer years of experience."
+    },
+    {
+      "pair_id": 23,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "This candidate presents an exceptionally strong senior profile with extensive experience, advanced education, diverse in-demand skills, consistent GitHub activity, and multiple patents.",
+      "candidate_b_reasoning": "This candidate presents an exceptionally strong senior profile with extensive experience, advanced education, diverse in-demand skills, consistent GitHub activity, and multiple patents."
+    },
+    {
+      "pair_id": 24,
+      "candidate_a_score": 72,
+      "candidate_b_score": 72,
+      "candidate_a_reasoning": "This candidate has a solid foundation in core technologies, good education, and impressive open-source involvement for their experience level, though GitHub activity is moderate.",
+      "candidate_b_reasoning": "This candidate has a solid foundation in core technologies, good education, and impressive open-source involvement for their experience level, though GitHub activity is moderate."
+    },
+    {
+      "pair_id": 25,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "This candidate possesses a solid mid-level profile with relevant modern skills and acceptable GitHub activity and open-source contributions.",
+      "candidate_b_reasoning": "This candidate possesses a solid mid-level profile with relevant modern skills and acceptable GitHub activity and open-source contributions."
+    },
+    {
+      "pair_id": 26,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "The candidate demonstrates strong experience, relevant skills, active GitHub contributions, and notable innovation with a patent and open-source project.",
+      "candidate_b_reasoning": "The candidate demonstrates strong experience, relevant skills, active GitHub contributions, and notable innovation with a patent and open-source project."
+    },
+    {
+      "pair_id": 27,
+      "candidate_a_score": 78,
+      "candidate_b_score": 78,
+      "candidate_a_reasoning": "Despite limited experience, the candidate exhibits good foundational skills, decent GitHub activity, and impressive open-source contributions for an entry-level role.",
+      "candidate_b_reasoning": "Despite limited experience, the candidate exhibits good foundational skills, decent GitHub activity, and impressive open-source contributions for an entry-level role."
+    },
+    {
+      "pair_id": 28,
+      "candidate_a_score": 94,
+      "candidate_b_score": 94,
+      "candidate_a_reasoning": "The candidate possesses robust experience, a highly relevant Master's degree, a diverse skill set, strong GitHub activity, and significant innovation through patents and open-source work.",
+      "candidate_b_reasoning": "The candidate possesses robust experience, a highly relevant Master's degree, a diverse skill set, strong GitHub activity, and significant innovation through patents and open-source work."
+    },
+    {
+      "pair_id": 29,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "The candidate shows strong experience, a relevant engineering degree, a comprehensive and modern skill set, high GitHub activity, and valuable patents.",
+      "candidate_b_reasoning": "The candidate shows strong experience, a relevant engineering degree, a comprehensive and modern skill set, high GitHub activity, and valuable patents."
+    },
+    {
+      "pair_id": 30,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "The candidate demonstrates solid experience, an advanced degree, a strong technical skill set, consistent GitHub activity, and exceptional open-source project contributions.",
+      "candidate_b_reasoning": "The candidate demonstrates solid experience, an advanced degree, a strong technical skill set, consistent GitHub activity, and exceptional open-source project contributions."
+    },
+    {
+      "pair_id": 31,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "The candidate demonstrates strong experience in Machine Learning with an MSc, significant open-source contributions, and relevant technical skills.",
+      "candidate_b_reasoning": "The candidate demonstrates strong experience in Machine Learning with an MSc, significant open-source contributions, and relevant technical skills."
+    },
+    {
+      "pair_id": 32,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "The candidate exhibits solid experience with diverse technical skills, a relevant degree, and a strong track record of open-source contributions and patents.",
+      "candidate_b_reasoning": "The candidate exhibits solid experience with diverse technical skills, a relevant degree, and a strong track record of open-source contributions and patents."
+    },
+    {
+      "pair_id": 33,
+      "candidate_a_score": 82,
+      "candidate_b_score": 82,
+      "candidate_a_reasoning": "The candidate shows promising early-career technical depth with a strong skill set, relevant contributions, and a good number of patents and open-source projects.",
+      "candidate_b_reasoning": "The candidate shows promising early-career technical depth with a strong skill set, relevant contributions, and a good number of patents and open-source projects."
+    },
+    {
+      "pair_id": 34,
+      "candidate_a_score": 87,
+      "candidate_b_score": 87,
+      "candidate_a_reasoning": "The candidate possesses extensive experience in cloud and backend technologies, a master's degree, and multiple patents.",
+      "candidate_b_reasoning": "The candidate possesses extensive experience in cloud and backend technologies, a master's degree, and multiple patents."
+    },
+    {
+      "pair_id": 35,
+      "candidate_a_score": 84,
+      "candidate_b_score": 84,
+      "candidate_a_reasoning": "The candidate demonstrates good experience in modern infrastructure and backend development with strong technical contributions and a relevant degree.",
+      "candidate_b_reasoning": "The candidate demonstrates good experience in modern infrastructure and backend development with strong technical contributions and a relevant degree."
+    },
+    {
+      "pair_id": 36,
+      "candidate_a_score": 78,
+      "candidate_b_score": 78,
+      "candidate_a_reasoning": "Candidate demonstrates strong experience and education, though GitHub activity and external contributions are moderate.",
+      "candidate_b_reasoning": "Candidate demonstrates strong experience and education, though GitHub activity and external contributions are moderate."
+    },
+    {
+      "pair_id": 37,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "Despite fewer years of experience, the candidate exhibits exceptional activity, innovation, and contributions to open source.",
+      "candidate_b_reasoning": "Despite fewer years of experience, the candidate exhibits exceptional activity, innovation, and contributions to open source."
+    },
+    {
+      "pair_id": 38,
+      "candidate_a_score": 83,
+      "candidate_b_score": 83,
+      "candidate_a_reasoning": "The candidate presents a strong profile with substantial experience, good technical skills, and evidence of innovation and contribution.",
+      "candidate_b_reasoning": "The candidate presents a strong profile with substantial experience, good technical skills, and evidence of innovation and contribution."
+    },
+    {
+      "pair_id": 39,
+      "candidate_a_score": 87,
+      "candidate_b_score": 87,
+      "candidate_a_reasoning": "Candidate offers extensive experience and advanced education, complemented by strong skills and consistent external contributions.",
+      "candidate_b_reasoning": "Candidate offers extensive experience and advanced education, complemented by strong skills and consistent external contributions."
+    },
+    {
+      "pair_id": 40,
+      "candidate_a_score": 89,
+      "candidate_b_score": 89,
+      "candidate_a_reasoning": "The candidate demonstrates a strong academic foundation and significant innovation and activity for their experience level.",
+      "candidate_b_reasoning": "The candidate demonstrates a strong academic foundation and significant innovation and activity for their experience level."
+    },
+    {
+      "pair_id": 41,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "Both candidates demonstrate strong foundational skills and good activity for their junior experience level.",
+      "candidate_b_reasoning": "Both candidates demonstrate strong foundational skills and good activity for their junior experience level."
+    },
+    {
+      "pair_id": 42,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "Both candidates show a strong senior profile with relevant skills, consistent activity, and solid education.",
+      "candidate_b_reasoning": "Both candidates show a strong senior profile with relevant skills, consistent activity, and solid education."
+    },
+    {
+      "pair_id": 43,
+      "candidate_a_score": 83,
+      "candidate_b_score": 83,
+      "candidate_a_reasoning": "Both candidates present a solid senior profile with strong core skills, although with no visible open-source contributions.",
+      "candidate_b_reasoning": "Both candidates present a solid senior profile with strong core skills, although with no visible open-source contributions."
+    },
+    {
+      "pair_id": 44,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "Both candidates are highly qualified, possessing significant experience, an advanced degree, and multiple patents.",
+      "candidate_b_reasoning": "Both candidates are highly qualified, possessing significant experience, an advanced degree, and multiple patents."
+    },
+    {
+      "pair_id": 45,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "Both candidates exhibit an excellent profile with a strong technical skill set, advanced education, and significant open-source contributions.",
+      "candidate_b_reasoning": "Both candidates exhibit an excellent profile with a strong technical skill set, advanced education, and significant open-source contributions."
+    },
+    {
+      "pair_id": 46,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "Candidate A possesses a solid mid-level profile with relevant skills, good experience, active GitHub contributions, and open-source involvement.",
+      "candidate_b_reasoning": "Candidate B possesses a solid mid-level profile with relevant skills, good experience, active GitHub contributions, and open-source involvement."
+    },
+    {
+      "pair_id": 47,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Candidate A exhibits a strong profile with significant experience, a master's degree, diverse modern skills, and active GitHub engagement.",
+      "candidate_b_reasoning": "Candidate B exhibits a strong profile with significant experience, a master's degree, diverse modern skills, and active GitHub engagement."
+    },
+    {
+      "pair_id": 48,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "Candidate A presents an exceptional senior profile, highlighted by extensive experience, an advanced degree, strong ML skills, multiple patents, and robust open-source contributions.",
+      "candidate_b_reasoning": "Candidate B presents an exceptional senior profile, highlighted by extensive experience, an advanced degree, strong ML skills, multiple patents, and robust open-source contributions."
+    },
+    {
+      "pair_id": 49,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Candidate A, despite limited experience, demonstrates outstanding potential with a specialized master's degree, multiple patents, and valuable open-source involvement.",
+      "candidate_b_reasoning": "Candidate B, despite limited experience, demonstrates outstanding potential with a specialized master's degree, multiple patents, and valuable open-source involvement."
+    },
+    {
+      "pair_id": 50,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "Candidate A demonstrates a highly experienced senior profile with extensive tenure, strong cloud and ML ops skills, notable patents, and significant open-source project involvement.",
+      "candidate_b_reasoning": "Candidate B demonstrates a highly experienced senior profile with extensive tenure, strong cloud and ML ops skills, notable patents, and significant open-source project involvement."
+    },
+    {
+      "pair_id": 51,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "A strong technical profile evidenced by an MSc, extensive GitHub activity, multiple patents, and significant open-source contributions for their experience level.",
+      "candidate_b_reasoning": "A strong technical profile evidenced by an MSc, extensive GitHub activity, multiple patents, and significant open-source contributions for their experience level."
+    },
+    {
+      "pair_id": 52,
+      "candidate_a_score": 78,
+      "candidate_b_score": 78,
+      "candidate_a_reasoning": "A solid technical background with relevant skills, good GitHub engagement, and contributions to open-source and patented work.",
+      "candidate_b_reasoning": "A solid technical background with relevant skills, good GitHub engagement, and contributions to open-source and patented work."
+    },
+    {
+      "pair_id": 53,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "Exceptional senior candidate with a strong academic background, diverse advanced skills, substantial innovation through patents, and active open-source participation.",
+      "candidate_b_reasoning": "Exceptional senior candidate with a strong academic background, diverse advanced skills, substantial innovation through patents, and active open-source participation."
+    },
+    {
+      "pair_id": 54,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "Highly experienced senior candidate showcasing a robust skill set, advanced degree, consistent coding activity, and practical contributions to open-source and patented technologies.",
+      "candidate_b_reasoning": "Highly experienced senior candidate showcasing a robust skill set, advanced degree, consistent coding activity, and practical contributions to open-source and patented technologies."
+    },
+    {
+      "pair_id": 55,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "A strong senior candidate with a solid education, relevant enterprise skills, a good record of innovation, and contributions to open-source projects.",
+      "candidate_b_reasoning": "A strong senior candidate with a solid education, relevant enterprise skills, a good record of innovation, and contributions to open-source projects."
+    },
+    {
+      "pair_id": 56,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Possesses strong mid-level experience with an MSc, excellent skills, high GitHub activity, multiple patents, and open-source contributions.",
+      "candidate_b_reasoning": "Possesses strong mid-level experience with an MSc, excellent skills, high GitHub activity, multiple patents, and open-source contributions."
+    },
+    {
+      "pair_id": 57,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Demonstrates strong senior experience and an MSc, good skills and patents, though GitHub activity is moderate with no open-source projects.",
+      "candidate_b_reasoning": "Demonstrates strong senior experience and an MSc, good skills and patents, though GitHub activity is moderate with no open-source projects."
+    },
+    {
+      "pair_id": 58,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "Shows solid mid-level experience with high GitHub activity, multiple open-source projects, and a patent, despite having fewer listed skills and a BSc.",
+      "candidate_b_reasoning": "Shows solid mid-level experience with high GitHub activity, multiple open-source projects, and a patent, despite having fewer listed skills and a BSc."
+    },
+    {
+      "pair_id": 59,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Exhibits exceptional junior potential with relevant skills, multiple patents, and significant open-source contributions for someone with limited experience.",
+      "candidate_b_reasoning": "Exhibits exceptional junior potential with relevant skills, multiple patents, and significant open-source contributions for someone with limited experience."
+    },
+    {
+      "pair_id": 60,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "Has solid senior experience and patents, but fewer listed skills, a BSc, moderate GitHub activity, and no open-source contributions.",
+      "candidate_b_reasoning": "Has solid senior experience and patents, but fewer listed skills, a BSc, moderate GitHub activity, and no open-source contributions."
+    },
+    {
+      "pair_id": 61,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "This candidate exhibits strong experience, relevant skills, consistent GitHub activity, and impressive patent contributions.",
+      "candidate_b_reasoning": "This candidate exhibits strong experience, relevant skills, consistent GitHub activity, and impressive patent contributions."
+    },
+    {
+      "pair_id": 62,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "This candidate possesses substantial experience, modern skills, and a high level of GitHub engagement.",
+      "candidate_b_reasoning": "This candidate possesses substantial experience, modern skills, and a high level of GitHub engagement."
+    },
+    {
+      "pair_id": 63,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "This candidate shows solid foundational experience and skills, with a decent level of GitHub activity and open-source contributions for their tenure.",
+      "candidate_b_reasoning": "This candidate shows solid foundational experience and skills, with a decent level of GitHub activity and open-source contributions for their tenure."
+    },
+    {
+      "pair_id": 64,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "This candidate presents exceptional experience, advanced education, a highly relevant and diverse skill set, significant open-source involvement, and a patent.",
+      "candidate_b_reasoning": "This candidate presents exceptional experience, advanced education, a highly relevant and diverse skill set, significant open-source involvement, and a patent."
+    },
+    {
+      "pair_id": 65,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "This candidate demonstrates strong potential with modern skills, very active GitHub contributions, and notable open-source projects for their experience level.",
+      "candidate_b_reasoning": "This candidate demonstrates strong potential with modern skills, very active GitHub contributions, and notable open-source projects for their experience level."
+    },
+    {
+      "pair_id": 66,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Strong technical profile with an MSc, 7 years of experience, relevant cloud/data skills, and significant open-source contributions.",
+      "candidate_b_reasoning": "Strong technical profile with an MSc, 7 years of experience, relevant cloud/data skills, and significant open-source contributions."
+    },
+    {
+      "pair_id": 67,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Excellent technical profile for 5 years experience, highlighted by high GitHub activity, multiple patents, and extensive open-source work.",
+      "candidate_b_reasoning": "Excellent technical profile for 5 years experience, highlighted by high GitHub activity, multiple patents, and extensive open-source work."
+    },
+    {
+      "pair_id": 68,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Highly impressive for 3 years of experience, demonstrating a strong modern tech stack, significant patents, and open-source contributions.",
+      "candidate_b_reasoning": "Highly impressive for 3 years of experience, demonstrating a strong modern tech stack, significant patents, and open-source contributions."
+    },
+    {
+      "pair_id": 69,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "Very experienced candidate with strong modern language skills, consistent GitHub activity, and valuable patents and open-source projects.",
+      "candidate_b_reasoning": "Very experienced candidate with strong modern language skills, consistent GitHub activity, and valuable patents and open-source projects."
+    },
+    {
+      "pair_id": 70,
+      "candidate_a_score": 86,
+      "candidate_b_score": 86,
+      "candidate_a_reasoning": "Solid technical background with 9 years experience, an MSc in Machine Learning, relevant skills, good patents, and moderate GitHub activity.",
+      "candidate_b_reasoning": "Solid technical background with 9 years experience, an MSc in Machine Learning, relevant skills, good patents, and moderate GitHub activity."
+    },
+    {
+      "pair_id": 71,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "The candidate demonstrates strong technical proficiency and innovation with 3 patents and consistent GitHub activity, despite limited years of experience.",
+      "candidate_b_reasoning": "The candidate demonstrates strong technical proficiency and innovation with 3 patents and consistent GitHub activity, despite limited years of experience."
+    },
+    {
+      "pair_id": 72,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "The candidate shows strong technical aptitude with an MSc, significant GitHub activity, and valuable contributions to open-source projects.",
+      "candidate_b_reasoning": "The candidate shows strong technical aptitude with an MSc, significant GitHub activity, and valuable contributions to open-source projects."
+    },
+    {
+      "pair_id": 73,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "The candidate possesses extensive experience and open-source contributions, though the listed skills are somewhat limited given the years of experience.",
+      "candidate_b_reasoning": "The candidate possesses extensive experience and open-source contributions, though the listed skills are somewhat limited given the years of experience."
+    },
+    {
+      "pair_id": 74,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "The candidate demonstrates extensive experience, relevant technical skills, consistent activity, and valuable open-source contributions.",
+      "candidate_b_reasoning": "The candidate demonstrates extensive experience, relevant technical skills, consistent activity, and valuable open-source contributions."
+    },
+    {
+      "pair_id": 75,
+      "candidate_a_score": 96,
+      "candidate_b_score": 96,
+      "candidate_a_reasoning": "The candidate showcases exceptional expertise in Machine Learning, extensive experience, a relevant MSc, high GitHub activity, and multiple patents.",
+      "candidate_b_reasoning": "The candidate showcases exceptional expertise in Machine Learning, extensive experience, a relevant MSc, high GitHub activity, and multiple patents."
+    },
+    {
+      "pair_id": 76,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "Candidate demonstrates strong experience (10 years), advanced education (MSc), comprehensive skills, high GitHub activity, and significant contributions (patents, open source projects).",
+      "candidate_b_reasoning": "Candidate demonstrates strong experience (10 years), advanced education (MSc), comprehensive skills, high GitHub activity, and significant contributions (patents, open source projects)."
+    },
+    {
+      "pair_id": 77,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Candidate shows solid mid-level experience (4 years), relevant skills, good GitHub activity, and valuable contributions (patents, open source projects).",
+      "candidate_b_reasoning": "Candidate shows solid mid-level experience (4 years), relevant skills, good GitHub activity, and valuable contributions (patents, open source projects)."
+    },
+    {
+      "pair_id": 78,
+      "candidate_a_score": 75,
+      "candidate_b_score": 75,
+      "candidate_a_reasoning": "Candidate has extensive experience (10 years) and relevant skills, but a lower GitHub commit frequency offsets their otherwise good contributions.",
+      "candidate_b_reasoning": "Candidate has extensive experience (10 years) and relevant skills, but a lower GitHub commit frequency offsets their otherwise good contributions."
+    },
+    {
+      "pair_id": 79,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "Candidate exhibits strong experience (8 years), diverse and in-demand skills including ML, good GitHub activity, and excellent contributions (patents, open source projects).",
+      "candidate_b_reasoning": "Candidate exhibits strong experience (8 years), diverse and in-demand skills including ML, good GitHub activity, and excellent contributions (patents, open source projects)."
+    },
+    {
+      "pair_id": 80,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Candidate combines good experience (4 years) with an advanced degree (MSc), valuable ML skills, very high GitHub activity, and exceptional open source involvement.",
+      "candidate_b_reasoning": "Candidate combines good experience (4 years) with an advanced degree (MSc), valuable ML skills, very high GitHub activity, and exceptional open source involvement."
+    },
+    {
+      "pair_id": 81,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "This candidate demonstrates strong technical skills with an MSc, 6 years of experience, good GitHub activity, a patent, and an open-source project.",
+      "candidate_b_reasoning": "This candidate demonstrates strong technical skills with an MSc, 6 years of experience, good GitHub activity, a patent, and an open-source project."
+    },
+    {
+      "pair_id": 82,
+      "candidate_a_score": 95,
+      "candidate_b_score": 95,
+      "candidate_a_reasoning": "This candidate presents an excellent profile with extensive experience, high GitHub activity, a patent, and multiple open-source projects.",
+      "candidate_b_reasoning": "This candidate presents an excellent profile with extensive experience, high GitHub activity, a patent, and multiple open-source projects."
+    },
+    {
+      "pair_id": 83,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "This candidate shows a very strong technical background with solid experience, a good range of skills, excellent GitHub activity, and a patent.",
+      "candidate_b_reasoning": "This candidate shows a very strong technical background with solid experience, a good range of skills, excellent GitHub activity, and a patent."
+    },
+    {
+      "pair_id": 84,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "This candidate has a good technical foundation with moderate experience, a strong skill set, a patent, and several open-source projects, despite lower GitHub commits.",
+      "candidate_b_reasoning": "This candidate has a good technical foundation with moderate experience, a strong skill set, a patent, and several open-source projects, despite lower GitHub commits."
+    },
+    {
+      "pair_id": 85,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "This candidate displays exceptional innovation with three patents, solid experience, strong GitHub activity, and good open-source contributions.",
+      "candidate_b_reasoning": "This candidate displays exceptional innovation with three patents, solid experience, strong GitHub activity, and good open-source contributions."
+    },
+    {
+      "pair_id": 86,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "The candidate demonstrates strong technical proficiency with an MSc, 6 years of experience, relevant skills, and consistent open-source contributions.",
+      "candidate_b_reasoning": "The candidate demonstrates strong technical proficiency with an MSc, 6 years of experience, relevant skills, and consistent open-source contributions."
+    },
+    {
+      "pair_id": 87,
+      "candidate_a_score": 88,
+      "candidate_b_score": 88,
+      "candidate_a_reasoning": "The candidate exhibits solid technical background with 6 years experience, relevant skills, a patent, and practical contributions.",
+      "candidate_b_reasoning": "The candidate exhibits solid technical background with 6 years experience, relevant skills, a patent, and practical contributions."
+    },
+    {
+      "pair_id": 88,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "The candidate showcases extensive technical expertise with 9 years of experience, a relevant MSc, a diverse skill set, and significant open-source engagement.",
+      "candidate_b_reasoning": "The candidate showcases extensive technical expertise with 9 years of experience, a relevant MSc, a diverse skill set, and significant open-source engagement."
+    },
+    {
+      "pair_id": 89,
+      "candidate_a_score": 89,
+      "candidate_b_score": 89,
+      "candidate_a_reasoning": "The candidate displays promising technical ability with 4 years of experience, a broad skill set, and active participation in open-source projects.",
+      "candidate_b_reasoning": "The candidate displays promising technical ability with 4 years of experience, a broad skill set, and active participation in open-source projects."
+    },
+    {
+      "pair_id": 90,
+      "candidate_a_score": 93,
+      "candidate_b_score": 93,
+      "candidate_a_reasoning": "The candidate possesses exceptional technical depth, evidenced by 11 years of experience, an MSc, robust skills, and extensive open-source contributions.",
+      "candidate_b_reasoning": "The candidate possesses exceptional technical depth, evidenced by 11 years of experience, an MSc, robust skills, and extensive open-source contributions."
+    },
+    {
+      "pair_id": 91,
+      "candidate_a_score": 78,
+      "candidate_b_score": 78,
+      "candidate_a_reasoning": "Solid experience and relevant skills are complemented by a patent and moderate GitHub activity.",
+      "candidate_b_reasoning": "Solid experience and relevant skills are complemented by a patent and moderate GitHub activity."
+    },
+    {
+      "pair_id": 92,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "Demonstrates strong technical output and innovation for their experience level, supported by multiple patents and open-source contributions.",
+      "candidate_b_reasoning": "Demonstrates strong technical output and innovation for their experience level, supported by multiple patents and open-source contributions."
+    },
+    {
+      "pair_id": 93,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "Extensive experience and a wide range of relevant skills are reinforced by significant contributions to open-source projects and consistent GitHub activity.",
+      "candidate_b_reasoning": "Extensive experience and a wide range of relevant skills are reinforced by significant contributions to open-source projects and consistent GitHub activity."
+    },
+    {
+      "pair_id": 94,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Possesses a strong academic background, extensive experience, and a notable history of innovation through patents and open-source contributions.",
+      "candidate_b_reasoning": "Possesses a strong academic background, extensive experience, and a notable history of innovation through patents and open-source contributions."
+    },
+    {
+      "pair_id": 95,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "Excellent academic foundation combined with a patent and significant open-source contributions demonstrates high technical potential early in their career.",
+      "candidate_b_reasoning": "Excellent academic foundation combined with a patent and significant open-source contributions demonstrates high technical potential early in their career."
+    },
+    {
+      "pair_id": 96,
+      "candidate_a_score": 92,
+      "candidate_b_score": 92,
+      "candidate_a_reasoning": "The candidate demonstrates strong experience, an advanced degree, significant GitHub activity, valuable patents, and notable open-source contributions.",
+      "candidate_b_reasoning": "The candidate demonstrates strong experience, an advanced degree, significant GitHub activity, valuable patents, and notable open-source contributions."
+    },
+    {
+      "pair_id": 97,
+      "candidate_a_score": 80,
+      "candidate_b_score": 80,
+      "candidate_a_reasoning": "The candidate presents solid foundational experience, a strong skill set, and exceptional contributions with patents and open-source projects for their experience level.",
+      "candidate_b_reasoning": "The candidate presents solid foundational experience, a strong skill set, and exceptional contributions with patents and open-source projects for their experience level."
+    },
+    {
+      "pair_id": 98,
+      "candidate_a_score": 85,
+      "candidate_b_score": 85,
+      "candidate_a_reasoning": "The candidate exhibits solid experience, an advanced degree, significant GitHub activity, and good open-source project involvement.",
+      "candidate_b_reasoning": "The candidate exhibits solid experience, an advanced degree, significant GitHub activity, and good open-source project involvement."
+    },
+    {
+      "pair_id": 99,
+      "candidate_a_score": 90,
+      "candidate_b_score": 90,
+      "candidate_a_reasoning": "The candidate possesses extensive experience, an advanced degree, consistent GitHub activity, and impressive open-source project contributions.",
+      "candidate_b_reasoning": "The candidate possesses extensive experience, an advanced degree, consistent GitHub activity, and impressive open-source project contributions."
+    },
+    {
+      "pair_id": 100,
+      "candidate_a_score": 83,
+      "candidate_b_score": 83,
+      "candidate_a_reasoning": "The candidate demonstrates strong experience, relevant skills, consistent GitHub activity, and good open-source project involvement.",
+      "candidate_b_reasoning": "The candidate demonstrates strong experience, relevant skills, consistent GitHub activity, and good open-source project involvement."
+    }
+  ]
+}
