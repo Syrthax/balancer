@@ -73,6 +73,11 @@ def _score_batch_sync(pairs: list[dict], fair: bool = False) -> list[dict]:
                 messages=[{"role": "user", "content": prompt}],
             )
             result = _parse_json(response["message"]["content"])
+            # Validate every entry is a dict (1B models sometimes return bare ints)
+            if not result or not all(isinstance(r, dict) for r in result):
+                raise ValueError(
+                    f"Expected list of dicts, got {type(result[0]).__name__ if result else 'empty'}"
+                )
             # 1B models often re-index or over-generate — remap by position
             if len(result) < len(expected_ids):
                 raise ValueError(

@@ -57,7 +57,7 @@ def generate_self_corrected(
     from balancer.router import score_with_fallback
 
     scores, model_name = score_with_fallback(
-        pairs, batch_size=10, fair=True, progress_cb=progress_cb
+        pairs, batch_size=5, fair=True, progress_cb=progress_cb
     )
     return {
         "metadata": {
