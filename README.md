@@ -30,7 +30,7 @@ Existing fairness tools (Fairlearn, AIF360) audit tabular ML classifiers, not LL
 Bertrand, M., and Mullainathan, S. (2004). *Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination.* American Economic Review, 94(4).
 
 ## Architecture
-Generator -> Gemini API -> Llama 3.2 -> Score Store -> Analyzer -> Mitigator -> Reporter -> Web App
+Generator -> Gemini API -> Score Store -> Analyzer -> Mitigator -> Reporter -> Web App
 
 ## Features
 
