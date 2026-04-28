@@ -61,7 +61,7 @@ def _score_batch_sync(pairs: list[dict], fair: bool = False) -> list[dict]:
     template = FAIR_PROMPT_TEMPLATE if fair else SCORE_PROMPT_TEMPLATE
     prompt = template.format(candidates_json=json.dumps(pairs, indent=2))
 
-    for attempt in range(1, 4):
+    for attempt in range(1, 3):  # max 2 attempts
         try:
             message = client.messages.create(
                 model=CLAUDE_MODEL,
@@ -70,10 +70,12 @@ def _score_batch_sync(pairs: list[dict], fair: bool = False) -> list[dict]:
             )
             return _parse_scores(message.content[0].text)
         except Exception as e:
-            if attempt < 3:
-                wait = attempt * 10
-                print(f"      ⚠  Claude error. Waiting {wait}s before retry {attempt}/3...")
-                time.sleep(wait)
+            err = str(e)
+            is_auth = "401" in err or "authentication" in err.lower() or "invalid x-api-key" in err.lower()
+            if is_auth:
+                raise RuntimeError(f"Claude auth failed: {e}") from e
+            if attempt < 2:
+                time.sleep(3)
             else:
                 raise RuntimeError(f"Claude batch failed: {e}") from e
     return []

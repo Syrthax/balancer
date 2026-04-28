@@ -72,29 +72,28 @@ def _parse_scores(raw: str) -> list[dict]:
 
 
 def _score_batch_sync(pairs: list[dict], fair: bool = False) -> list[dict]:
-    """Score one batch with 429-aware retry (15s, 30s, 45s backoff)."""
+    """Score one batch. Quota exhaustion raises GeminiQuotaError immediately (no sleep)."""
     model = _get_model()
     template = FAIR_PROMPT_TEMPLATE if fair else SCORE_PROMPT_TEMPLATE
     prompt = template.format(candidates_json=json.dumps(pairs, indent=2))
 
-    for attempt in range(1, 4):
+    for attempt in range(1, 3):  # max 2 attempts for transient errors only
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 response = model.generate_content(prompt)
             return _parse_scores(response.text)
         except Exception as e:
-            is_429 = (
+            is_quota = (
                 "429" in str(e)
                 or "quota" in str(e).lower()
                 or "ResourceExhausted" in type(e).__name__
             )
-            if is_429 and attempt < 3:
-                wait = attempt * 15  # 15s, 30s
-                print(f"      ⚠  Rate limited. Waiting {wait}s before retry {attempt}/3...")
-                time.sleep(wait)
-            elif is_429:
+            if is_quota:
+                # Quota won't recover in seconds — fail immediately
                 raise GeminiQuotaError(str(e)) from e
+            if attempt < 2:
+                time.sleep(3)
             else:
                 raise RuntimeError(f"Gemini batch failed: {e}") from e
     return []
