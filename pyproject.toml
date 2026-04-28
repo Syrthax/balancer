@@ -18,6 +18,8 @@ dependencies = [
     "aiohttp>=3.9",
     "rich>=13.7",
     "anthropic>=0.40",
+    "fastapi>=0.111",
+    "uvicorn>=0.29",
 ]
 
 [project.scripts]
