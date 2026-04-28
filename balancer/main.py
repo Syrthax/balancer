@@ -189,7 +189,10 @@ def test_api():
 
 
 @app.command()
-def run(seed: int = typer.Option(42, help="Seed for pair generation")):
+def run(
+    seed: int = typer.Option(42, help="Seed for pair generation"),
+    local: bool = typer.Option(False, "--local", help="Skip cloud APIs, use local Ollama directly"),
+):
     """Full pipeline: load pairs → score → save results/gemini_biased.json."""
     import json
     import time
@@ -237,7 +240,15 @@ def run(seed: int = typer.Option(42, help="Seed for pair generation")):
 
     start = time.time()
     try:
-        scores, name = score_with_fallback(pairs, batch_size=10, progress_cb=_progress)
+        if local:
+            from balancer import ollama_client
+            if not ollama_client.is_reachable():
+                console.print("[red]✗ Ollama not reachable. Run `ollama serve`.[/red]")
+                raise typer.Exit(code=1)
+            scores = ollama_client.score_all_pairs(pairs, batch_size=5, progress_cb=_progress)
+            name = f"Ollama ({ollama_client.OLLAMA_MODEL})"
+        else:
+            scores, name = score_with_fallback(pairs, batch_size=10, progress_cb=_progress)
     except Exception as e:
         console.print(f"[red]✗ Scoring failed:[/red] {e}")
         raise typer.Exit(code=1)

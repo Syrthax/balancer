@@ -14,7 +14,7 @@ def get_client():
         print("⚠  Gemini unreachable. Falling back to Claude (claude-haiku-4-5).")
         return claude_client
 
-    print("⚠  Gemini + Claude unreachable. Falling back to Ollama (gemma3:4b).")
+    print("⚠  Gemini + Claude unreachable. Falling back to Ollama (llama3.2:1b).")
     if not ollama_client.is_reachable():
         raise RuntimeError(
             "No LLM available. Check GEMINI_API_KEY / ANTHROPIC_API_KEY or run `ollama serve`."
@@ -55,7 +55,7 @@ def score_with_fallback(
             )
             return scores, get_client_name(claude_client)
         except Exception as e:
-            print(f"\n⚠  Claude failed ({e}). Falling back to Ollama (gemma3:4b).")
+            print(f"\n⚠  Claude failed ({e}). Falling back to Ollama (llama3.2:1b).")
 
     if not ollama_client.is_reachable():
         raise RuntimeError(
